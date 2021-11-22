@@ -1,0 +1,15 @@
+CPPFLAGS=`root-config --cflags` -I$(RATROOT)/include -I$(RATROOT)/include/RAT -I$(RATROOT)/include/RAT/DS 
+LDFLAGS=-g -L$(RATROOT)/lib -L$(ROOTSYS)/lib
+LDLIBS=-lRATEvent -lhdf5_cpp -lhdf5 `root-config --glibs` -Wall -lcurl -pthread
+CC=h5c++
+
+TARGET = eos_example
+
+all: $(TARGET)
+
+$(TARGET): $(TARGET).cc
+	$(CC) $(LDFLAGS) -o $(TARGET) $(TARGET).cc eos_direction.cc $(CPPFLAGS) $(LDLIBS)
+
+clean:
+	$(RM) $(TARGET)
+
